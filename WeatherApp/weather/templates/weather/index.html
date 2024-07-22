@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз погоды</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Ваш Прогноз погоды</h1>
+    <form method="post" class="input">
+        {% csrf_token %}
+        {{ form }}
+        <div>
+            <button type="submit">Поиск</button>
+        </div>
+    </form>
+    <h2>Данные о погоде:</h2>
+    <ul>
+        {% for weather in weathers %}
+            <li>
+                <p>{{ weather.city }}</p>
+                <p>{{ weather.weather_now }}</p>
+                <p>Температура {{ weather.temperature }}°С</p>
+                <p>Ощущается как {{ weather.apparent_temperature }}°С</p>
+                <p>Влажность {{ weather.humidity }}%</p>
+                <p>Скорость ветра {{ weather.wind_speed }}м/с</p>
+                <p>Вероятность осадков {{ weather.precipitation_probability }}%</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
